@@ -1,0 +1,30 @@
+﻿<Page x:Class="Kursovaya.Pages.PagesEmp.TasksEmp"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Kursovaya.Pages.PagesEmp"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="TasksEmp">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBox x:Name="TbSearch" TextChanged="TbSearch_TextChanged" Background="Transparent" VerticalContentAlignment="Center"/>
+        <ListView Grid.Row="1" x:Name="Lw" Background="Transparent" BorderBrush="Transparent" ItemsSource="{Binding}" SelectionChanged="Lw_SelectionChanged" FontSize="16">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding taskname}" Style="{DynamicResource EllStyle}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Frame x:Name="Frm" Grid.Column="1" Grid.RowSpan="2" Navigating="Frm_Navigating"/>
+    </Grid>
+</Page>

@@ -1,0 +1,613 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище dbModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="admin">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="login" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="roleID" Type="int" Nullable="false" />
+          <Property Name="personalityID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="company">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="compname" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="adminID" Type="int" Nullable="false" />
+          <Property Name="code" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="emp">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="login" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="personalityID" Type="int" Nullable="false" />
+          <Property Name="roleID" Type="int" Nullable="false" />
+          <Property Name="companyID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="gender">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="gender" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="personality">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="firstname" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="lastname" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="middlename" Type="nvarchar(max)" />
+          <Property Name="genderID" Type="int" Nullable="false" />
+          <Property Name="email" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="phone" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="dateofbirth" Type="date" Nullable="false" />
+          <Property Name="address" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="info" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="reports">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="taskID" Type="int" Nullable="false" />
+          <Property Name="description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="roles">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="role" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tasks">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="taskname" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="empID" Type="int" Nullable="false" />
+          <Property Name="expired" Type="bit" />
+          <Property Name="verification" Type="bit" />
+        </EntityType>
+        <Association Name="FK_admin_personality">
+          <End Role="personality" Type="Self.personality" Multiplicity="1" />
+          <End Role="admin" Type="Self.admin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="personality">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="admin">
+              <PropertyRef Name="personalityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_admin_roles">
+          <End Role="roles" Type="Self.roles" Multiplicity="1" />
+          <End Role="admin" Type="Self.admin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roles">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="admin">
+              <PropertyRef Name="roleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_company_admin">
+          <End Role="admin" Type="Self.admin" Multiplicity="1" />
+          <End Role="company" Type="Self.company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="admin">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="company">
+              <PropertyRef Name="adminID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_emp_company">
+          <End Role="company" Type="Self.company" Multiplicity="1" />
+          <End Role="emp" Type="Self.emp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="company">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="emp">
+              <PropertyRef Name="companyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_emp_personality">
+          <End Role="personality" Type="Self.personality" Multiplicity="1" />
+          <End Role="emp" Type="Self.emp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="personality">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="emp">
+              <PropertyRef Name="personalityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_emp_roles">
+          <End Role="roles" Type="Self.roles" Multiplicity="1" />
+          <End Role="emp" Type="Self.emp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roles">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="emp">
+              <PropertyRef Name="roleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_personality_gender">
+          <End Role="gender" Type="Self.gender" Multiplicity="1" />
+          <End Role="personality" Type="Self.personality" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="gender">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="personality">
+              <PropertyRef Name="genderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_reports_tasks">
+          <End Role="tasks" Type="Self.tasks" Multiplicity="1" />
+          <End Role="reports" Type="Self.reports" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tasks">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="reports">
+              <PropertyRef Name="taskID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tasks_emp">
+          <End Role="emp" Type="Self.emp" Multiplicity="1" />
+          <End Role="tasks" Type="Self.tasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="emp">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tasks">
+              <PropertyRef Name="empID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище dbModelContainer">
+          <EntitySet Name="admin" EntityType="Self.admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="company" EntityType="Self.company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="emp" EntityType="Self.emp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="gender" EntityType="Self.gender" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="personality" EntityType="Self.personality" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="reports" EntityType="Self.reports" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="roles" EntityType="Self.roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tasks" EntityType="Self.tasks" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_admin_personality" Association="Self.FK_admin_personality">
+            <End Role="personality" EntitySet="personality" />
+            <End Role="admin" EntitySet="admin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_admin_roles" Association="Self.FK_admin_roles">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="admin" EntitySet="admin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_company_admin" Association="Self.FK_company_admin">
+            <End Role="admin" EntitySet="admin" />
+            <End Role="company" EntitySet="company" />
+          </AssociationSet>
+          <AssociationSet Name="FK_emp_company" Association="Self.FK_emp_company">
+            <End Role="company" EntitySet="company" />
+            <End Role="emp" EntitySet="emp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_emp_personality" Association="Self.FK_emp_personality">
+            <End Role="personality" EntitySet="personality" />
+            <End Role="emp" EntitySet="emp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_emp_roles" Association="Self.FK_emp_roles">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="emp" EntitySet="emp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_personality_gender" Association="Self.FK_personality_gender">
+            <End Role="gender" EntitySet="gender" />
+            <End Role="personality" EntitySet="personality" />
+          </AssociationSet>
+          <AssociationSet Name="FK_reports_tasks" Association="Self.FK_reports_tasks">
+            <End Role="tasks" EntitySet="tasks" />
+            <End Role="reports" EntitySet="reports" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tasks_emp" Association="Self.FK_tasks_emp">
+            <End Role="emp" EntitySet="emp" />
+            <End Role="tasks" EntitySet="tasks" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="admin">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="login" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="roleID" Type="Int32" Nullable="false" />
+          <Property Name="personalityID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="personality" Relationship="Self.FK_admin_personality" FromRole="admin" ToRole="personality" />
+          <NavigationProperty Name="roles" Relationship="Self.FK_admin_roles" FromRole="admin" ToRole="roles" />
+          <NavigationProperty Name="company" Relationship="Self.FK_company_admin" FromRole="admin" ToRole="company" />
+        </EntityType>
+        <EntityType Name="company">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="compname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="adminID" Type="Int32" Nullable="false" />
+          <Property Name="code" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="admin" Relationship="Self.FK_company_admin" FromRole="company" ToRole="admin" />
+          <NavigationProperty Name="emp" Relationship="Self.FK_emp_company" FromRole="company" ToRole="emp" />
+        </EntityType>
+        <EntityType Name="emp">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="login" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="personalityID" Type="Int32" Nullable="false" />
+          <Property Name="roleID" Type="Int32" Nullable="false" />
+          <Property Name="companyID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="company" Relationship="Self.FK_emp_company" FromRole="emp" ToRole="company" />
+          <NavigationProperty Name="personality" Relationship="Self.FK_emp_personality" FromRole="emp" ToRole="personality" />
+          <NavigationProperty Name="roles" Relationship="Self.FK_emp_roles" FromRole="emp" ToRole="roles" />
+          <NavigationProperty Name="tasks" Relationship="Self.FK_tasks_emp" FromRole="emp" ToRole="tasks" />
+        </EntityType>
+        <EntityType Name="gender">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="gender1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="personality" Relationship="Self.FK_personality_gender" FromRole="gender" ToRole="personality" />
+        </EntityType>
+        <EntityType Name="personality">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="firstname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="lastname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="middlename" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="genderID" Type="Int32" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="dateofbirth" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="info" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="admin" Relationship="Self.FK_admin_personality" FromRole="personality" ToRole="admin" />
+          <NavigationProperty Name="emp" Relationship="Self.FK_emp_personality" FromRole="personality" ToRole="emp" />
+          <NavigationProperty Name="gender" Relationship="Self.FK_personality_gender" FromRole="personality" ToRole="gender" />
+        </EntityType>
+        <EntityType Name="reports">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="taskID" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tasks" Relationship="Self.FK_reports_tasks" FromRole="reports" ToRole="tasks" />
+        </EntityType>
+        <EntityType Name="roles">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="role" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="admin" Relationship="Self.FK_admin_roles" FromRole="roles" ToRole="admin" />
+          <NavigationProperty Name="emp" Relationship="Self.FK_emp_roles" FromRole="roles" ToRole="emp" />
+        </EntityType>
+        <EntityType Name="tasks">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="taskname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="empID" Type="Int32" Nullable="false" />
+          <Property Name="expired" Type="Boolean" />
+          <Property Name="verification" Type="Boolean" />
+          <NavigationProperty Name="emp" Relationship="Self.FK_tasks_emp" FromRole="tasks" ToRole="emp" />
+          <NavigationProperty Name="reports" Relationship="Self.FK_reports_tasks" FromRole="tasks" ToRole="reports" />
+        </EntityType>
+        <Association Name="FK_admin_personality">
+          <End Role="personality" Type="Self.personality" Multiplicity="1" />
+          <End Role="admin" Type="Self.admin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="personality">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="admin">
+              <PropertyRef Name="personalityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_admin_roles">
+          <End Role="roles" Type="Self.roles" Multiplicity="1" />
+          <End Role="admin" Type="Self.admin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roles">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="admin">
+              <PropertyRef Name="roleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_company_admin">
+          <End Role="admin" Type="Self.admin" Multiplicity="1" />
+          <End Role="company" Type="Self.company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="admin">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="company">
+              <PropertyRef Name="adminID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_emp_company">
+          <End Role="company" Type="Self.company" Multiplicity="1" />
+          <End Role="emp" Type="Self.emp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="company">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="emp">
+              <PropertyRef Name="companyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_emp_personality">
+          <End Role="personality" Type="Self.personality" Multiplicity="1" />
+          <End Role="emp" Type="Self.emp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="personality">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="emp">
+              <PropertyRef Name="personalityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_emp_roles">
+          <End Role="roles" Type="Self.roles" Multiplicity="1" />
+          <End Role="emp" Type="Self.emp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roles">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="emp">
+              <PropertyRef Name="roleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tasks_emp">
+          <End Role="emp" Type="Self.emp" Multiplicity="1" />
+          <End Role="tasks" Type="Self.tasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="emp">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tasks">
+              <PropertyRef Name="empID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_personality_gender">
+          <End Role="gender" Type="Self.gender" Multiplicity="1" />
+          <End Role="personality" Type="Self.personality" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="gender">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="personality">
+              <PropertyRef Name="genderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_reports_tasks">
+          <End Role="tasks" Type="Self.tasks" Multiplicity="1" />
+          <End Role="reports" Type="Self.reports" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tasks">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="reports">
+              <PropertyRef Name="taskID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="admin" EntityType="Self.admin" />
+          <EntitySet Name="company" EntityType="Self.company" />
+          <EntitySet Name="emp" EntityType="Self.emp" />
+          <EntitySet Name="gender" EntityType="Self.gender" />
+          <EntitySet Name="personality" EntityType="Self.personality" />
+          <EntitySet Name="reports" EntityType="Self.reports" />
+          <EntitySet Name="roles" EntityType="Self.roles" />
+          <EntitySet Name="tasks" EntityType="Self.tasks" />
+          <AssociationSet Name="FK_admin_personality" Association="Self.FK_admin_personality">
+            <End Role="personality" EntitySet="personality" />
+            <End Role="admin" EntitySet="admin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_admin_roles" Association="Self.FK_admin_roles">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="admin" EntitySet="admin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_company_admin" Association="Self.FK_company_admin">
+            <End Role="admin" EntitySet="admin" />
+            <End Role="company" EntitySet="company" />
+          </AssociationSet>
+          <AssociationSet Name="FK_emp_company" Association="Self.FK_emp_company">
+            <End Role="company" EntitySet="company" />
+            <End Role="emp" EntitySet="emp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_emp_personality" Association="Self.FK_emp_personality">
+            <End Role="personality" EntitySet="personality" />
+            <End Role="emp" EntitySet="emp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_emp_roles" Association="Self.FK_emp_roles">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="emp" EntitySet="emp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tasks_emp" Association="Self.FK_tasks_emp">
+            <End Role="emp" EntitySet="emp" />
+            <End Role="tasks" EntitySet="tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_personality_gender" Association="Self.FK_personality_gender">
+            <End Role="gender" EntitySet="gender" />
+            <End Role="personality" EntitySet="personality" />
+          </AssociationSet>
+          <AssociationSet Name="FK_reports_tasks" Association="Self.FK_reports_tasks">
+            <End Role="tasks" EntitySet="tasks" />
+            <End Role="reports" EntitySet="reports" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище dbModelContainer" CdmEntityContainer="dbEntities">
+          <EntitySetMapping Name="admin">
+            <EntityTypeMapping TypeName="dbModel.admin">
+              <MappingFragment StoreEntitySet="admin">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="roleID" ColumnName="roleID" />
+                <ScalarProperty Name="personalityID" ColumnName="personalityID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="company">
+            <EntityTypeMapping TypeName="dbModel.company">
+              <MappingFragment StoreEntitySet="company">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="compname" ColumnName="compname" />
+                <ScalarProperty Name="adminID" ColumnName="adminID" />
+                <ScalarProperty Name="code" ColumnName="code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="emp">
+            <EntityTypeMapping TypeName="dbModel.emp">
+              <MappingFragment StoreEntitySet="emp">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="personalityID" ColumnName="personalityID" />
+                <ScalarProperty Name="roleID" ColumnName="roleID" />
+                <ScalarProperty Name="companyID" ColumnName="companyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="gender">
+            <EntityTypeMapping TypeName="dbModel.gender">
+              <MappingFragment StoreEntitySet="gender">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="gender1" ColumnName="gender" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="personality">
+            <EntityTypeMapping TypeName="dbModel.personality">
+              <MappingFragment StoreEntitySet="personality">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="middlename" ColumnName="middlename" />
+                <ScalarProperty Name="genderID" ColumnName="genderID" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="dateofbirth" ColumnName="dateofbirth" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="info" ColumnName="info" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="reports">
+            <EntityTypeMapping TypeName="dbModel.reports">
+              <MappingFragment StoreEntitySet="reports">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="taskID" ColumnName="taskID" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="roles">
+            <EntityTypeMapping TypeName="dbModel.roles">
+              <MappingFragment StoreEntitySet="roles">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="role" ColumnName="role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tasks">
+            <EntityTypeMapping TypeName="dbModel.tasks">
+              <MappingFragment StoreEntitySet="tasks">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="taskname" ColumnName="taskname" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="empID" ColumnName="empID" />
+                <ScalarProperty Name="expired" ColumnName="expired" />
+                <ScalarProperty Name="verification" ColumnName="verification" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

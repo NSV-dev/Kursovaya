@@ -1,0 +1,37 @@
+﻿<Page x:Class="Kursovaya.Pages.PagesEmp.TaskDesc.TaskDescPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Kursovaya.Pages.PagesEmp.TaskDesc" 
+      xmlns:fa="http://schemas.fontawesome.io/icons/"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="TaskDescPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="6*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Margin="10">
+            <Label Content="Описание задачи: " FontSize="20"/>
+            <TextBlock x:Name="TbDesc" FontSize="15" Text="{Binding description}" TextWrapping="Wrap" Margin="5,0,0,0"/>
+            <Label>
+                <Label.Content>
+                    <WrapPanel>
+                        <TextBlock Text="Завершить до: "/>
+                        <TextBlock Text="{Binding date.Day}"/>
+                        <TextBlock Text="."/>
+                        <TextBlock Text="{Binding date.Month}"/>
+                        <TextBlock Text="."/>
+                        <TextBlock Text="{Binding date.Year}"/>
+                    </WrapPanel>
+                </Label.Content>
+            </Label>
+        </StackPanel>
+        <Button Grid.Row="1" HorizontalAlignment="Right" Style="{DynamicResource DoneBtn}" Click="Button_Click">
+            <fa:ImageAwesome Icon="CheckCircle" Width="50" Height="50"/>
+        </Button>
+    </Grid>
+</Page>

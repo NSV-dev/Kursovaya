@@ -1,0 +1,55 @@
+﻿<Window x:Class="Kursovaya.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
+        xmlns:local="clr-namespace:Kursovaya"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource TopDown}"
+        Title="Рапределение задач" Height="600" Width="1000">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="9*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Border Grid.Column="1" Grid.Row="1" Style="{DynamicResource BgBorder}"/>
+        <Button x:Name="btn" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="btn_Click" MaxHeight="50" Style="{StaticResource MenuBtn}">
+            <fa:ImageAwesome Icon="Bars"/>
+        </Button>
+        <StackPanel x:Name="MenuSP" Grid.Row="1" Margin="0,20,0,0" MaxWidth="100" MinWidth="40">
+            <ToggleButton x:Name="MainTog" Checked="MainTog_Checked" Style="{StaticResource ToggleButtonStyle}" Margin="10">
+                <ToggleButton.ToolTip>
+                    <ToolTip Content="Главная"/>
+                </ToggleButton.ToolTip>
+                <fa:ImageAwesome Icon="Home"/>
+            </ToggleButton>
+            <ToggleButton x:Name="TasksTog" Checked="TasksTog_Checked" Style="{StaticResource ToggleButtonStyle}" Margin="10">
+                <ToggleButton.ToolTip>
+                    <ToolTip Content="Задачи"/>
+                </ToggleButton.ToolTip>
+                <fa:ImageAwesome Icon="ListUl"/>
+            </ToggleButton>
+            <ToggleButton x:Name="AccTog" Checked="AccTog_Checked" Style="{StaticResource ToggleButtonStyle}" Margin="10">
+                <ToggleButton.ToolTip>
+                    <ToolTip Content="Аккаунт"/>
+                </ToggleButton.ToolTip>
+                <fa:ImageAwesome Icon="User"/>
+            </ToggleButton>
+            <ToggleButton x:Name="ExitTog" Checked="ExitTog_Checked" Style="{StaticResource ToggleButtonStyle}" Margin="10">
+                <ToggleButton.ToolTip>
+                    <ToolTip Content="Выход"/>
+                </ToggleButton.ToolTip>
+                <fa:ImageAwesome Icon="SignOut"/>
+            </ToggleButton>
+        </StackPanel>
+        <Frame Grid.Row="1" Grid.Column="1" x:Name="Frm" NavigationUIVisibility="Hidden" Navigating="Frm_Navigating" Margin="20"/>
+    </Grid>
+</Window>

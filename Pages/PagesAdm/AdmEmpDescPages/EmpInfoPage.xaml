@@ -1,0 +1,59 @@
+﻿<Page x:Class="Kursovaya.Pages.PagesAdm.AdmEmpDescPages.EmpInfoPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Kursovaya.Pages.PagesAdm.AdmEmpDescPages" xmlns:fa="http://schemas.fontawesome.io/icons/"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="EmpInfoPage">
+
+    <Grid>
+        <StackPanel>
+            <WrapPanel>
+                <Label Content="{Binding firstname}"/>
+                <Label Content="{Binding lastname}"/>
+                <Label Content="{Binding middlename}"/>
+            </WrapPanel>
+            <WrapPanel>
+                <Label Content="Пол: "/>
+                <Label Content="{Binding gender.gender1}"/>
+            </WrapPanel>
+            <WrapPanel>
+                <Label Content="Дата рождения:" FontSize="16"/>
+                <Label FontSize="16">
+                    <Label.Content>
+                        <WrapPanel>
+                            <TextBlock Text="{Binding dateofbirth.Day}"/>
+                            <TextBlock Text="."/>
+                            <TextBlock Text="{Binding dateofbirth.Month}"/>
+                            <TextBlock Text="."/>
+                            <TextBlock Text="{Binding dateofbirth.Year}"/>
+                        </WrapPanel>
+                    </Label.Content>
+                </Label>
+            </WrapPanel>
+            <WrapPanel>
+                <Label Content="Email: "/>
+                <Label Content="{Binding email}"/>
+            </WrapPanel>
+            <WrapPanel>
+                <Label Content="Телефон: "/>
+                <Label Content="{Binding phone}"/>
+            </WrapPanel>
+            <WrapPanel>
+                <Label Content="Адрес:"/>
+                <TextBlock Text="{Binding address}" TextWrapping="Wrap" Margin="0,5,0,0"/>
+            </WrapPanel>
+            <StackPanel>
+                <DockPanel HorizontalAlignment="Stretch">
+                    <Label Content="Информация о сотруднике:"/>
+                    <Button HorizontalAlignment="Right" Width="30" Height="30" Margin="0,0,10,0" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_Click">
+                        <fa:ImageAwesome Icon="CheckSquare" />
+                    </Button>
+                </DockPanel>
+                <TextBox x:Name="TbInfo" Text="{Binding info}" Height="200" Margin="0,5,0,0"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

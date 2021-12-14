@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ba0202252bbd4f8da6946757817ac6dd" Name="Diagram1">
+        <EntityTypeShape EntityType="dbModel.admin" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbModel.company" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbModel.emp" Width="1.5" PointX="7.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbModel.gender" Width="1.5" PointX="1.5" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbModel.personality" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbModel.reports" Width="1.5" PointX="12" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbModel.roles" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbModel.tasks" Width="1.5" PointX="9.75" PointY="1.125" IsExpanded="true" />
+        <AssociationConnector Association="dbModel.FK_admin_personality" ManuallyRouted="false" />
+        <AssociationConnector Association="dbModel.FK_admin_roles" ManuallyRouted="false" />
+        <AssociationConnector Association="dbModel.FK_company_admin" ManuallyRouted="false" />
+        <AssociationConnector Association="dbModel.FK_emp_company" ManuallyRouted="false" />
+        <AssociationConnector Association="dbModel.FK_emp_personality" ManuallyRouted="false" />
+        <AssociationConnector Association="dbModel.FK_emp_roles" ManuallyRouted="false" />
+        <AssociationConnector Association="dbModel.FK_tasks_emp" ManuallyRouted="false" />
+        <AssociationConnector Association="dbModel.FK_personality_gender" ManuallyRouted="false" />
+        <AssociationConnector Association="dbModel.FK_reports_tasks" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
